@@ -33,6 +33,8 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+
+                api(project(":network"))
             }
         }
         val androidMain by getting {

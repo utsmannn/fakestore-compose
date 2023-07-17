@@ -35,13 +35,18 @@ kotlin {
                 implementation(compose.components.resources)
 
                 api(project(":network"))
+                api(project(":core"))
+
+                implementation(project(":features:home"))
+
+                api("io.github.qdsfdhvh:image-loader:1.6.0")
             }
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.6.1")
+                api("androidx.activity:activity-compose:1.7.2")
                 api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.9.0")
+                api("androidx.core:core-ktx:1.10.1")
             }
         }
         val iosX64Main by getting

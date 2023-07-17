@@ -35,3 +35,5 @@ dependencyResolutionManagement {
     }
 }
 include(":network")
+include(":core")
+include(":features:home")

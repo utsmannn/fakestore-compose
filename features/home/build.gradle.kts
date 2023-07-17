@@ -1,14 +1,11 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    kotlin("plugin.serialization") version "1.8.21"
+    id("org.jetbrains.compose")
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    val ktorVersion = "2.3.2"
-
-
     targetHierarchy.default()
 
     android {
@@ -25,37 +22,34 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "network"
+            baseName = "home"
         }
     }
 
     sourceSets {
-
         val commonMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
 
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-
+                implementation(project(":network"))
                 implementation(project(":core"))
             }
         }
 
         getByName("androidMain").dependencies {
-            api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-            implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-        }
-
-        getByName("iosMain").dependencies {
-            implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            api("androidx.activity:activity-compose:1.7.2")
+            api("androidx.appcompat:appcompat:1.6.1")
+            api("androidx.core:core-ktx:1.10.1")
         }
     }
 }
 
 android {
-    namespace = "com.utsman.network"
+    namespace = "com.utsman.fakestore.home"
     compileSdk = 33
     defaultConfig {
         minSdk = 24

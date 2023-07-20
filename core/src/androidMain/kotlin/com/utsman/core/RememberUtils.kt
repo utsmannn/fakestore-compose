@@ -11,7 +11,7 @@ actual fun <T: ViewModel> rememberViewModel(viewModel: T): T {
     val vm = remember { viewModel }
     DisposableEffect(lifecycle) {
         onDispose {
-            vm
+            vm.clear()
         }
     }
 
